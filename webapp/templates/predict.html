@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Used Car Value Prediction</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"/>
+        <link rel="stylesheet" href="/static/style.css"/>
+    </head>
+    <body onload=onload()>
+        <div id="stripes">
+        </div>
+        <div id="content">
+            <div id="top-text" class="card">
+                <h1>Used Car Price Predictor</h1>
+                <p>This web application takes information about your car, and estimates a resale value for it. It uses a neural nework that was trained and tested with data from 2021 on over 200000 vehicles listed on Canadian car dealer websites. The model uses simple information about your car to estimate a price on it for resale. Enter details about your car below to get an estimate.</p>
+            </div>
+            <form method="POST" class="card" action="/">
+                <div id="input-sections">
+                    <div id="subsection1">
+                        <p>Make</p>
+                        <select id="make-select" name="make" onchange = updateModels()>
+                        </select>
+                        <p>Model</p>
+                        <select id="model-select" name="model" placeholder="select make first...">
+                        </select>                    
+                        <p>Year</p>
+                        <input name="year-input" type="number">                    
+                    </div>
+                    <div id="subsection2">
+                        <p>Body Type</p>
+                        <select id="body-select" name="body">
+                        </select>      
+                        <p>Mileage</p>
+                        <input name="miles-input" type="number">
+                        <p>Engine Size (L)</p>
+                        <input name="enginesize-input" type="number" step="0.1">                              
+                    </div>
+                    <div id="subsection3">
+                        <p>Drivetrain</p>
+                        <select id="drivetrain-select" name="drivetrain">
+                        </select>
+                        <p>Transmission</p>
+                        <select id="transmission-select" name="transmission" >
+                        </select>
+                        <p>Fuel/Power Type</p>
+                        <select id="fuel-select" name="fuel">
+                        </select>                
+                    </div>    
+                </div>
+                <!-- the nested button automatically submits using the form's method, to whatever endpoint is specified in action -->
+                <button type="submit">submit</button>
+            </form>     
+            {% if price %}
+            <div id="price-display" class="card">
+                    <h3>Your {{year}} {{make}} 
+                        {% if model != "Other" %}
+                            {{model}}
+                        {% endif %}
+                        is estimated at <strong>${{price}}</strong></h3>
+            </div>
+            {% endif %}
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+            <script src="static/search.js"></script>   
+        </div> 
+    </body>
+</html>
